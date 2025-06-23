@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Change.co</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inria+Serif&family=Italiana&family=Jeju+Gothic&family=JetBrains+Mono&family=Kalam&display=swap" rel="stylesheet">
+
+  <!-- Theme CSS -->
+  <link id="theme-style" rel="stylesheet" href="dark.css" />
+  <link rel="stylesheet" href="global.css" />
+
+  <style>
+    .hero {
+      background: url('images/image_1.png') no-repeat center center;
+      background-size: cover;
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+      z-index: 1;
+    }
+
+    .signup-section {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Theme toggle switch -->
+<div style="position: fixed; top: 10px; right: 10px; z-index: 999;">
+  <label style="font-family: 'JetBrains Mono', monospace;">
+    <input type="checkbox" id="mode-toggle"> Light Mode
+  </label>
+</div>
+
+<!-- Hero with background -->
+<div class="hero">
+  <section class="signup-section">
+    <div class="signup-container">
+      <div class="signup-promo">
+        <div class="promo-logo">
+          <img src="images/image_38.svg" alt="Logo">
+        </div>
+        <div class="promo-brand">CHANGE.CO</div>
+        <div class="promo-tagline">
+          Join the revolution in land change detection and monitoring. Create your account to start protecting our planet!
+        </div>
+      </div>
+
+      <div class="signup-form-wrapper">
+        <form class="signup-form">
+          <div class="form-title">Get Started</div>
+          <div class="form-subtitle">Monitor, Detect and Act on Changes</div>
+
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" placeholder="e.g. Sourajit Dasgupta">
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="e.g. your@email.com">
+          </div>
+
+          <div class="form-group">
+            <label for="aoi">Area of Interest (AOI)</label>
+            <input type="text" id="aoi" placeholder="e.g. Kolkata East">
+          </div>
+
+         <button type="submit" class="submit-btn" style="background-color: #FF4C4C; color: white;">Start Monitoring 🚀</button>
+
+        </form>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  &copy; 2025 Change.co — All rights reserved.
+</div>
+
+<!-- Theme Switching Script -->
+<script>
+  const toggle = document.getElementById('mode-toggle');
+  const themeLink = document.getElementById('theme-style');
+
+  if (localStorage.getItem('theme') === 'light') {
+    themeLink.href = 'light.css';
+    toggle.checked = true;
+  }
+
+  toggle.addEventListener('change', () => {
+    themeLink.href = toggle.checked ? 'light.css' : 'dark.css';
+    localStorage.setItem('theme', toggle.checked ? 'light' : 'dark');
+  });
+</script>
+
+</body>
+</html>
+

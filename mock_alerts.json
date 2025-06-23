@@ -1,0 +1,20 @@
+[
+  {
+    "location": "Kolkata East",
+    "type": "Vegetation Loss",
+    "status": "High Risk",
+    "timestamp": "2025-06-23 04:00 UTC"
+  },
+  {
+    "location": "Delhi South",
+    "type": "Urban Expansion",
+    "status": "Moderate Risk",
+    "timestamp": "2025-06-22 08:30 UTC"
+  },
+  {
+    "location": "Nagpur Industrial",
+    "type": "Thermal Signature Rise",
+    "status": "Critical",
+    "timestamp": "2025-06-23 10:12 UTC"
+  }
+]

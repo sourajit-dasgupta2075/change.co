@@ -1,0 +1,17 @@
+body {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+a { color: #38F9D7; }
+
+input, button {
+  background-color: #1f1f1f;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+.card {
+  background-color: #1E1E1E;
+  color: #fff;
+}

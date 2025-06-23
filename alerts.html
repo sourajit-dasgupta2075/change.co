@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Alerts - Change.co</title>
+  <link href="https://fonts.googleapis.com/css2?family=Italiana&family=JetBrains+Mono&display=swap" rel="stylesheet" />
+  <link id="theme-style" rel="stylesheet" href="dark.css" />
+  <link rel="stylesheet" href="global.css" />
+  <style>
+    html, body { height: 100%; margin: 0; }
+    .layout { display: flex; height: 100vh; overflow: hidden; }
+
+    .sidebar {
+      width: 250px;
+      background: #1E1E1E;
+      padding: 24px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .sidebar h2 { color: #38F9D7; }
+    .sidebar ul { list-style: none; padding: 0; margin-top: 30px; }
+    .sidebar ul li { margin-bottom: 12px; }
+    .sidebar ul li a { color: white; text-decoration: none; }
+    .sidebar ul li a.active { color: #38F9D7; }
+
+    .hero {
+      background: url('images/image_1.png') no-repeat center center;
+      background-size: cover;
+      flex: 1;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+    }
+
+    .main-content {
+      z-index: 2;
+      position: relative;
+      padding: 40px;
+      flex: 1;
+      color: white;
+      font-family: 'JetBrains Mono', monospace;
+      overflow-y: auto;
+    }
+
+    .card {
+      background: #1E1E1E;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .export-btn, .delete-btn {
+      background-color: #38F9D7;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      cursor: pointer;
+      margin-bottom: 20px;
+      margin-right: 10px;
+    }
+
+    .delete-btn {
+      background-color: #ff4d4d;
+    }
+
+    .delete-btn:hover {
+      background-color: #e63c3c;
+    }
+  </style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <h2>CHANGE.CO</h2>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="viewer.html">AOI Viewer</a></li>
+      <li><a href="alerts.html" class="active">Alerts</a></li>
+      <li><a href="settings.html">Settings</a></li>
+      <li><a href="services.html">Services</a></li>
+    </ul>
+  </aside>
+
+  <div class="hero">
+    <main class="main-content">
+      <h1>Alerts Overview</h1>
+      <button class="export-btn" onclick="exportAlerts()">Download Alerts (CSV)</button>
+      <button class="delete-btn" onclick="deleteAlerts()">Delete Alerts</button>
+
+      <!-- ✅ EMPTY alerts container (no "loading..." message) -->
+      <div id="alerts-container"></div>
+    </main>
+  </div>
+</div>
+
+<script>
+  // ✅ Inline alerts data (no fetch required)
+  const alerts = [
+    {
+      location: "Kolkata East",
+      type: "Vegetation Loss",
+      status: "High Risk",
+      timestamp: "2025-06-23 04:00 UTC"
+    },
+    {
+      location: "Delhi South",
+      type: "Urban Expansion",
+      status: "Moderate Risk",
+      timestamp: "2025-06-22 08:30 UTC"
+    },
+    {
+      location: "Nagpur Industrial",
+      type: "Thermal Signature Rise",
+      status: "Critical",
+      timestamp: "2025-06-23 10:12 UTC"
+    }
+  ];
+
+  function renderAlerts() {
+    const container = document.getElementById("alerts-container");
+    container.innerHTML = "";
+    if (alerts.length === 0) {
+      container.innerHTML = "<p style='color:#ccc;'>No alerts available.</p>";
+      return;
+    }
+
+    alerts.forEach(alert => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <strong>Location:</strong> ${alert.location}<br>
+        <strong>Type:</strong> ${alert.type}<br>
+        <strong>Status:</strong> ${alert.status}<br>
+        <strong>Timestamp:</strong> ${alert.timestamp}
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  function exportAlerts() {
+    if (alerts.length === 0) return;
+    const header = ['Location', 'Type', 'Status', 'Timestamp'];
+    const rows = alerts.map(a => [a.location, a.type, a.status, a.timestamp]);
+    const csv = [header, ...rows].map(r => r.join(',')).join('\\n');
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "alerts_data.csv";
+    a.click();
+  }
+
+  function deleteAlerts() {
+    alerts.length = 0;
+    renderAlerts();
+  }
+
+  document.addEventListener("DOMContentLoaded", renderAlerts);
+</script>
+</body>
+</html>
+
